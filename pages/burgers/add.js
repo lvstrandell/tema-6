@@ -35,16 +35,20 @@ export default function AddBurger() {
     .onSnapshot((querySnapshot) => {
       setBurger(querySnapshot.docs.map(burger => burger.data()))
     });
+  }, []);
 
+  useEffect(() => {
     firebaseInstance.firestore().collection('fries')
     .onSnapshot((querySnapshot) => {
       setFries(querySnapshot.docs.map(fries => fries.data))
     });
+  }, []);
 
+  useEffect(() => {
     firebaseInstance.firestore().collection('drinks')
     .onSnapshot((querySnapshot) => {
       setDrinks(querySnapshot.docs.map(drinks => drinks.data))
-    })
+    });
   }, []);
 
   const burgerMenu = burger.map(burger => {
@@ -57,7 +61,7 @@ export default function AddBurger() {
           cart.addProductLine({
             title: burger.type,
             price: burger.price,
-            quantity: burger.quantity
+            // quantity: burger.quantity
           })
         }}>+</button>
       </div>
@@ -122,14 +126,15 @@ return (
             return (
               <li>
                 <div key={items.id}>
-                  {items.title} {items.quantity} - {items.price}NOK
+                  {items.title} - {items.price}NOK 
+                  {/* lägg till {items.quantity} */}
                 </div>
               </li>
             )
           })}
         </ul>
         <p>Total: {cart.total}NOK</p>
-        <p>Varor i din beställning: {cart.quantity}</p>
+        {/* <p>Varor i din beställning: {cart.quantity}</p> */}
         <button onClick={checkout}>Lägg till beställning!</button>
     </main>
   )
