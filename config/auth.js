@@ -7,6 +7,7 @@ const AuthContext = createContext({user: null})
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  
   const isAuthenticated = user !== null && !loading;
   
   useEffect(() => {

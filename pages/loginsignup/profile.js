@@ -4,6 +4,10 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../../config/auth';
 import ReturnButton from '../../components/ReturnButton/index';
 import Link from 'next/link'
+import {
+  ProfileMain,
+  ProfileContainer
+} from '../../components/ProfilePage/index';
 
 
 const Profile = () => {
@@ -37,13 +41,14 @@ const Profile = () => {
   //   )
   // }
   return (
-    <section style={{marginTop: '15%'}}>
-      <h2>Profil</h2>
-      <p>{user.email}</p>
-      <p>{user.uid}</p>
-      <button onClick={handleSignOut}>Sign Out</button>
+    <main>
+      <ProfileContainer>
+        <h2>Din Profil</h2>
+        <p>{user.email}</p>
+        <button onClick={handleSignOut}>Sign Out</button>
+      </ProfileContainer>
       <ReturnButton><Link href="/">Tillbaka till startsidan</Link></ReturnButton>
-    </section>
+    </main>
   )
 }
 

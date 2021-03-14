@@ -1,11 +1,13 @@
 import { createGlobalStyle } from 'styled-components';
 
+
 const GlobalStyle = createGlobalStyle`
   * {
     font-size: 1rem;
     box-sizing: border-box;
     margin: 0;
     padding: 0%;
+    font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
   body {

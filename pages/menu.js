@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import PageTitle from '../components/PageTitle';
 import Link from 'next/link';
 import ReturnButton from '../components/ReturnButton/index';
-import { useCart } from '../config/shoppingcart';
 import { MenuMain, MenuWrapper, ItemsTitle, MenuItems, MenuTitle } from '../components/MenuPage/index';
 
 function Menu() {
@@ -11,8 +10,6 @@ function Menu() {
   const [fries, setFries] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const cart = useCart();
 
   const refBurgers = firebaseInstance.firestore().collection('burgers')
   const refFries = firebaseInstance.firestore().collection('fries');

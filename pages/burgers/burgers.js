@@ -34,39 +34,39 @@ function Burgers() {
   };
 
 
-// function handleSubmit(event) {
-//   event.preventDefault();
-//   const orderCollection = firebaseInstance.firestore().collection('orders');
-//   orderCollection.doc().set({
-//     burger: burger,
-//   })
+function handleSubmit(event) {
+  event.preventDefault();
+  const orderCollection = firebaseInstance.firestore().collection('orders');
+  orderCollection.doc().set({
+    burger: burger,
+  })
 
-//   .then(() => {
-//     console.log('Ny burger!')
-//   })
-//   .catch(error => {
-//     console.error(error)
-//   })
-// };
+  .then(() => {
+    console.log('Ny burger!')
+  })
+  .catch(error => {
+    console.error(error)
+  })
+};
   
 
-  // function addBurgers(event) {
-  //   setBurger(event.target.value);
-  //   orderRef.doc().set({burger: burger})
-  //   .then(() => {
-  //     console.log('Burger lagt till')
-  //   })
-  //   .catch((error) => {
-  //     console.error(error)
-  //   })
-  // };
+  function addBurgers(event) {
+    setBurger(event.target.value);
+    orderRef.doc().set({burger: burger})
+    .then(() => {
+      console.log('Burger lagt till')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+  };
 
-  // function deleteBurgers(burgers) {
-  //   ref.doc(burgers.id).delete()
-  //   .catch((error) => {
-  //     console.error(error)
-  //   });
-  // };
+  function deleteBurgers(burgers) {
+    ref.doc(burgers.id).delete()
+    .catch((error) => {
+      console.error(error)
+    });
+  };
 
   if(loading) {
     return <h1>Loading...</h1>
