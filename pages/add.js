@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import styled from 'styled-components';
 import firebaseInstance from '../config/firebase';
 import { useCart } from '../config/shoppingcart';
 import { useAuth } from '../config/auth';
@@ -10,7 +9,6 @@ import {
   OrderMain, 
   GridWrapper, 
   Container, 
-  ItemsContainer, 
   FriesContainer, 
   CartContainer,
   CartItems,
@@ -18,6 +16,7 @@ import {
   OrderButton, 
   CartWrapper,
   CheckoutButton,
+  ItemsContainer,
 } from '../components/OrderPage/index';
 
 
@@ -28,86 +27,92 @@ export default function AddBurger() {
   const [error, setError] = useState(null);
   const {user, loading, isAuthenticated} = useAuth();
   const router = useRouter();
-
-  // cart.setProductLine(cart.productLines.filter((item) => item.id !== id))
-  //button onClick={() => handleremove(item.id)}
-
   const cart = useCart();
-  console.log(cart)
+
+
   useEffect(() => {
     firebaseInstance.firestore().collection('burgers')
     .onSnapshot((querySnapshot) => {
-      setBurger(querySnapshot.docs.map(burger => burger.data()))
+      const burgers = [];
+      querySnapshot.forEach((doc) => {
+        burgers.push({
+          id: doc.id,
+          ...doc.data()
+        })
+      })
+      setBurger(burgers)
     });
 
     firebaseInstance.firestore().collection('fries').orderBy('id')
     .onSnapshot((querySnapshot) => {
-      setFries(querySnapshot.docs.map(fries => fries.data()))
-    });
+      const fries = [];
+      querySnapshot.forEach((doc) => {
+        fries.push({
+          id: doc.id,
+          ...doc.data()
+        })
+      })
+      setFries(fries)
+    })
 
     firebaseInstance.firestore().collection('drinks')
     .onSnapshot((querySnapshot) => {
-      setDrinks(querySnapshot.docs.map(drinks => drinks.data()))
+      const drinks = [];
+      querySnapshot.forEach((doc) => {
+        drinks.push({
+          id: doc.id,
+          ...doc.data()
+        })
+      })
+      setDrinks(drinks)
     });
   }, []);
 
   const burgerMenu = burger.map(burger => {
-    // let id = uuid()
     return(
-      <div key={burger.id}>
-        <OrderButton onClick={() => {
+        <OrderButton key={burger.id} onClick={() => {
           cart.addProductLine({
             title: burger.type,
             price: burger.price,
-            id: burger.id
+            id: burger.id,
           })
         }}>
           <h2>{burger.type}</h2>
           <span>{burger.price} NOK</span>
           <br />
         </OrderButton>
-        </div>
     )
   })
-  // console.log(burger)
 
   const friesMenu = fries.map(fries => {
-    let id = uuid()
     return(
-      <div key={fries.id}>
-        <OrderButton onClick={() => {
+        <OrderButton key={fries.id} onClick={() => {
           cart.addProductLine({
             title: fries.type,
             price: fries.price,
-            id: id
+            id: fries.id,
           })
         }}>
         <h2>{fries.type}</h2>
         <span>{fries.price} NOK</span>
         <br />
         </OrderButton>
-      </div>
     )
   })
 
   const drinksMenu = drinks.map(drink => {
-    let id = uuid()
     return(
-      <div key={drink.id}>
-        <OrderButton onClick={() => {
+        <OrderButton key={drink.id} onClick={() => {
           cart.addProductLine({
             title: drink.type,
             price: drink.price,
-            id: id
+            id: drink.id,
           })
         }}>
-        <div key={drink.id}>
           <h2>{drink.type}</h2>
           <span>{drink.price} NOK</span>
-        </div>
         <br />
         </OrderButton>
-      </div>
     )
   })
 
@@ -116,9 +121,9 @@ export default function AddBurger() {
     router.push('/orderlist')
     const orderCollection = firebaseInstance.firestore().collection('orders');
     orderCollection.doc().set({
-      order: cart.productLines
+      order: [...cart.productLines],
+      complete: false,
     })
-
     .then(() => {
       console.log('Ny beställning!')
     })
@@ -127,25 +132,20 @@ export default function AddBurger() {
     })
 };
 
-// const handleRemove = async(id) => {
-//   // const find = cart.productsInCart.find((items) => items.price >= 120);
-//   try { 
-//    await cart.setProductLines(cart.productLines.filter((items) => items.id !== id))
-//   console.log('Beställningen borttagen!');
-//   } catch (error) {
-//     setError(error.message);
-//     console.log('Något gick fel')
-//   }
-// }
+
+function handleRemove(id) {
+  console.log(id, cart.productLines)
+  cart.setProductLine(cart.productLines.filter((item) => item.id !== id))
+}
 
 
 if(loading) {
-  return<h2>loading...</h2>
+  return<ItemsTitle style={{marginTop: '10%'}}>loading...</ItemsTitle>
 };
 
 if(!isAuthenticated) {
   router.push('/loginsignup/login')
-  return <h2 style={{marginTop: '15%'}}>Du måste vara inloggad för att beställa</h2>
+  return <h2 style={{marginTop: '10%'}}>Du måste vara inloggad för att beställa</h2>
 };
 
 
@@ -155,17 +155,17 @@ return (
       <GridWrapper>
       <Container>
         <ItemsTitle>Burgers</ItemsTitle>
-          <FriesContainer>
+          <ItemsContainer>
           {burgerMenu}
-          </FriesContainer>
+          </ItemsContainer>
         <ItemsTitle>Fries</ItemsTitle>
-          <FriesContainer>
+          <ItemsContainer>
             {friesMenu}
-          </FriesContainer>
+          </ItemsContainer>
         <ItemsTitle>Drinks</ItemsTitle>
-        <FriesContainer>
+        <ItemsContainer>
           {drinksMenu}
-          </FriesContainer>
+          </ItemsContainer>
       </Container>
       <CartContainer>
       <ItemsTitle>Kundvagn</ItemsTitle>
@@ -173,11 +173,11 @@ return (
         <ul>
           {cart.productLines.map((items) => {
             return (
-              <CartItems>
-                <li key={items.id}>
+              <CartItems key={items.id}>
+                <li>
                     {items.title} - {items.price}NOK
                 </li>
-                {/* <CartButton onClick={handleRemove(items.id)}>-</CartButton> */}
+                <CartButton onClick={handleRemove(items.id)}>-</CartButton>
               </CartItems>
             )
           })}

@@ -1,51 +1,46 @@
 import firebaseInstance from '../config/firebase';
 import Link from 'next/link'
 import { useState, useEffect } from 'react';
-import { useCart } from '../config/shoppingcart';
 
 export default function OrderList() {
-  const [newOrders, setNewOrders] = useState([]);
+  const [newOrders, setNewOrders] = useState([])
 
-  // console.log(test)
-  const cart = useCart();
+  const orderCollection = firebaseInstance.firestore().collection('orders')
 
-  useEffect(async () => {
-    await firebaseInstance.firestore().collection('orders')
-    .onSnapshot((querySnapshot) => {
-      const orders = [];
+  const fetchOrders = (orderCollection) => {
+    orderCollection.onSnapshot((querySnapshot) => {
+      const order = [];
       querySnapshot.forEach((doc) => {
-        orders.push(doc.data().order)
+        order.push({
+          id: doc.id,
+          ...doc.data()
+        })
       })
-      setNewOrders(orders)
+      setNewOrders(order)
     })
-  })
-   
-   const kitchenView = newOrders.map(items => {
-    return(
-      <h1>Bajs</h1>
-      // <div key={items.id}>
-      //   <h3>{items.title}</h3>
-      // </div>
-    )
-  });
+    }
+
+  useEffect(() => {
+    try {
+      fetchOrders(orderCollection)
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   const RenderOrderPage = () => {
-    return(
-      <main style={{marginTop: '15%'}}>
-        <section>
-          <article>
-          <h2>Beställningar under tillberedning</h2>
-          <hr />
-            {kitchenView}
-            <br/>
-            {JSON.stringify(newOrders)}
-          </article>
-        </section>
-      </main>
-    )
+    let incompleteOrders = [...newOrders.filter((order) => order.complete === false)]
+    return incompleteOrders.map((item) => {
+        return item.order.map(productLine => {
+          return (
+          <div key={productLine.id}>
+            <h3>{productLine.title}</h3>
+            <button>Färdig</button>
+          </div>)
+        })
+    })
   }
-
-  const OrderSkeleton = () => {
+  const NoOrders = () => {
     return (
       <div>
         <h1>Din beställning visas här</h1>
@@ -53,10 +48,13 @@ export default function OrderList() {
       </div>
     )
   }
-// console.log(orders)
+
 return(
-  <main style={{marginTop: '15%'}}>
-    {newOrders === undefined ? OrderSkeleton() : RenderOrderPage()}
+  <main style={{marginTop: '10%'}}>
+    <h2>Beställningar under tillberedning</h2>
+    {newOrders === undefined ? NoOrders() : RenderOrderPage()}
+    <hr />
+    <h2>Färdiga beställningar</h2>
   </main>
   )
 };

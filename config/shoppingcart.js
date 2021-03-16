@@ -3,25 +3,19 @@ import uuidv4 from 'react-uuid'
 
 const CartContext = createContext({
   productLines: [],
-  addProductLine: () => {}, total: 0, id: null
+  addProductLine: () => {}, total: 0,
   // quantity: 0
 });
 
 export const Cart = ({ children }) => {
   const [productLines, setProductLines] = useState([]);
   const [total, setTotal] = useState(0);
-  const [id, setId] = useState()
   // const [quantity, setQuantity] = useState(0)
 
   const addProductLine = (product) => {
     setProductLines([...productLines, product]);
   }
-
-  useEffect(() => {
-    const id = uuidv4()
-    setId(id)
-  }, [productLines])
-
+  
   useEffect(() => {
     const total = productLines.reduce((prev, cur) => {
       return prev + cur.price
@@ -40,7 +34,7 @@ export const Cart = ({ children }) => {
 
   return(
 
-    <CartContext.Provider  value={{ productLines, addProductLine, total, id }}>
+    <CartContext.Provider  value={{ productLines, addProductLine, total, }}>
       {/* lägg till quantity om det ska vara med som props */}
       {children}
     </CartContext.Provider>

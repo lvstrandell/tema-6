@@ -26,15 +26,7 @@ export const Container = styled.article`
   margin-top: 15%;
 `;
 
-export const ItemsContainer = styled.article`
-  height: fit-content;
-  min-height: 100px;
-  width: 80%;
-  border: 1px solid black;
-  background-color: #fff3;
-`;
-
-export const FriesContainer = styled.div`
+export const ItemsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;

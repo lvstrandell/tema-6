@@ -68,8 +68,8 @@ function Menu() {
         <MenuWrapper>
         {burgers.map((items) => {
           return(
-            <MenuItems>
-              <div key={items.id}>
+            <MenuItems key={items.id}>
+              <div>
                 <h3>{items.type}</h3>
                 <p>{items.desc}</p>
                 <p>{items.price}NOK</p>
@@ -82,8 +82,8 @@ function Menu() {
         <MenuWrapper>
           {fries.map((items) =>{
             return(
-              <MenuItems>
-                <div key={items.id}>
+              <MenuItems key={items.id}>
+                <div>
                   <h3>{items.type}</h3>
                   <p>{items.size}</p>
                   <p>{items.price}NOK</p>
@@ -96,8 +96,8 @@ function Menu() {
         <MenuWrapper>
           {drinks.map((items) =>{
               return(
-                <MenuItems>
-                  <div key={items.id}>
+                <MenuItems key={items.id}>
+                  <div>
                     <h3>{items.type}</h3>
                     <p>{items.price}NOK</p>
                   </div>
