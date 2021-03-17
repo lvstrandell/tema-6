@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function OrderList() {
   const [newOrders, setNewOrders] = useState([])
+  const [complete, setComplete] = useState()
 
   const orderCollection = firebaseInstance.firestore().collection('orders')
 
@@ -28,7 +29,7 @@ export default function OrderList() {
     }
   }, [])
 
-  const RenderOrderPage = () => {
+  const RenderIncompleteOrders = () => {
     let incompleteOrders = [...newOrders.filter((order) => order.complete === false)]
     return incompleteOrders.map((item) => {
         return item.order.map(productLine => {
@@ -36,23 +37,19 @@ export default function OrderList() {
           <div key={productLine.id}>
             <h3>{productLine.title}</h3>
             <button>Färdig</button>
-          </div>)
+          </div>
+          )
         })
     })
   }
-  const NoOrders = () => {
-    return (
-      <div>
-        <h1>Din beställning visas här</h1>
-        <Link href="/add">Lägg till beställning</Link>
-      </div>
-    )
-  }
+
+
+
 
 return(
   <main style={{marginTop: '10%'}}>
     <h2>Beställningar under tillberedning</h2>
-    {newOrders === undefined ? NoOrders() : RenderOrderPage()}
+    {RenderIncompleteOrders()}
     <hr />
     <h2>Färdiga beställningar</h2>
   </main>

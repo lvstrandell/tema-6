@@ -51,7 +51,7 @@ export const CartContainer = styled.article`
 `;
 
 export const CartWrapper = styled.div`
-  max-height: 15rem;
+  max-height: 10rem;
   width: 100%;
   overflow-y: auto;
 `;
@@ -73,7 +73,7 @@ export const CartButton = styled.button`
   margin-left: .5em;
 
   &:hover {
-    background-color: red;
+    background-color: #c11818;
     color: white;
   }
 `;
@@ -89,6 +89,19 @@ export const CheckoutButton = styled.button`
     color: white;
   }
 `;
+
+export const ClearButton = styled.button`
+  padding: .5rem;
+  border-radius: 10px;
+  background-color: black;
+  color: #ffae42;
+
+  &:hover {
+    background-color: #c11818;
+    color: white;
+  }
+`;
+
 
 export const OrderButton = styled.button`
   width: 115px;

@@ -4,16 +4,15 @@ import { useCart } from '../config/shoppingcart';
 import { useAuth } from '../config/auth';
 import { useRouter } from 'next/router';
 import { ItemsTitle } from '../components/MenuPage';
-import uuid from 'react-uuid'
 import { 
   OrderMain, 
   GridWrapper, 
   Container, 
-  FriesContainer, 
   CartContainer,
   CartItems,
   CartButton,
   OrderButton, 
+  ClearButton,
   CartWrapper,
   CheckoutButton,
   ItemsContainer,
@@ -75,6 +74,7 @@ export default function AddBurger() {
             title: burger.type,
             price: burger.price,
             id: burger.id,
+            // quantity: burger.quantity
           })
         }}>
           <h2>{burger.type}</h2>
@@ -91,6 +91,7 @@ export default function AddBurger() {
             title: fries.type,
             price: fries.price,
             id: fries.id,
+            // quantity: fries.quantity
           })
         }}>
         <h2>{fries.type}</h2>
@@ -107,6 +108,7 @@ export default function AddBurger() {
             title: drink.type,
             price: drink.price,
             id: drink.id,
+            // quantity: drink.quantity
           })
         }}>
           <h2>{drink.type}</h2>
@@ -133,11 +135,29 @@ export default function AddBurger() {
 };
 
 
-function handleRemove(id) {
-  console.log(id, cart.productLines)
-  cart.setProductLine(cart.productLines.filter((item) => item.id !== id))
+ const handleRemove = (event) => {
+  //  const shopCart = [...cart.productLines];
+  //   console.log(shopCart)
+  //   shopCart.filter(product => product.id !== id)
+      // map((productsInCart) => {
+      // console.log(productsInCart)
+      // productsInCart.filter(product => product.id !== id)
+      // productsInCart.filter((products) => products.id !== id)
+    // })
+    event.preventDefault()
+    cart.productLines.splice(event.target.value, 1)
+    console.log('Beställning borttagen!')
+    //   cart.productLines.map((cartProduct) => {
+    //   console.log(cartProduct)
+    //   cartProduct.filter(productCart => productCart.id !== id)
+    // })
+  }
+    
+const emptyCart = () => {
+  const clearCart = []
+  cart.productLines(clearCart)
+  
 }
-
 
 if(loading) {
   return<ItemsTitle style={{marginTop: '10%'}}>loading...</ItemsTitle>
@@ -175,9 +195,10 @@ return (
             return (
               <CartItems key={items.id}>
                 <li>
+                {/* X {items.quantity}  */}
                     {items.title} - {items.price}NOK
                 </li>
-                <CartButton onClick={handleRemove(items.id)}>-</CartButton>
+                <CartButton onClick={(event) => handleRemove(event)}>-</CartButton>
               </CartItems>
             )
           })}
@@ -185,6 +206,7 @@ return (
         </CartWrapper>
         <p>Total: {cart.total}NOK</p>
         <CheckoutButton onClick={handleSubmit}>Lägg till beställning!</CheckoutButton>
+        <ClearButton onClick={emptyCart}>Töm kundvagnen</ClearButton>
         </CartContainer>
         </GridWrapper>
     </OrderMain>
