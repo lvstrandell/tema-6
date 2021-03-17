@@ -5,7 +5,6 @@ import { useAuth } from '../../config/auth';
 import ReturnButton from '../../components/ReturnButton/index';
 import Link from 'next/link'
 import {
-  ProfileMain,
   ProfileContainer
 } from '../../components/ProfilePage/index';
 
@@ -21,6 +20,7 @@ const Profile = () => {
   const handleSignOut = async () => {
     await firebase.auth().signOut()
     router.push('/')
+    alert('Du är nu utloggad')
   }
 
   if(loading) {
@@ -32,14 +32,6 @@ const Profile = () => {
     return <h2>Du är inte inloggad</h2>
   };
 
-  // if(!user) {
-  //   return (
-  //     <div style={{marginTop: '15%'}}>
-  //       <h2> Du är inte inloggad</h2>
-  //       <ReturnButton><Link href="/">Tillbaka till startsidan</Link></ReturnButton>
-  //     </div>
-  //   )
-  // }
   return (
     <main>
       <ProfileContainer>

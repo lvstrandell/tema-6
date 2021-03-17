@@ -136,27 +136,17 @@ export default function AddBurger() {
 
 
  const handleRemove = (event) => {
-  //  const shopCart = [...cart.productLines];
-  //   console.log(shopCart)
-  //   shopCart.filter(product => product.id !== id)
-      // map((productsInCart) => {
-      // console.log(productsInCart)
-      // productsInCart.filter(product => product.id !== id)
-      // productsInCart.filter((products) => products.id !== id)
-    // })
-    event.preventDefault()
-    cart.productLines.splice(event.target.value, 1)
-    console.log('Beställning borttagen!')
-    //   cart.productLines.map((cartProduct) => {
-    //   console.log(cartProduct)
-    //   cartProduct.filter(productCart => productCart.id !== id)
-    // })
+  cart.productLines.splice(event.target.value, 1)
+  console.log(cart.productLines)
+  alert('Beställning borttagen!')
+
+    // cart.productLines.filter(items => items.id !== id)
+    // alert('Beställning borttagen!')
   }
     
 const emptyCart = () => {
   const clearCart = []
   cart.productLines(clearCart)
-  
 }
 
 if(loading) {
