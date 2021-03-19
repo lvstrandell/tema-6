@@ -27,28 +27,8 @@ export default function AddBurger() {
   const {user, loading, isAuthenticated} = useAuth();
   const router = useRouter();
   const cart = useCart();
+  console.log(cart)
 
-  // useEffect(() => {
-  //   const val = snapshot.data()
-
-  // }, [])
-
-  // const handleAdd = () => {
-  //   const counterRef = firebaseInstance.firestore().collection('globals').doc('counter');
-  //     firebaseInstance.firestore().runTransaction((transactions) => {
-  //       return transactions.get(counterRef).then((doc) => {
-  //         const count = doc.data().count;
-  //         let newCount = count + 1
-  //         if(newCount > 59) {
-  //           newCount = 1
-  //         }
-
-  //         transactions.update(counterRef, { count: newCount})
-
-  //       })
-  //     })
-  // }
-  //if(collected === true? display: none? kanskekkeeekekekek)
   useEffect(() => {
     firebaseInstance.firestore().collection('burgers')
     .onSnapshot((querySnapshot) => {
@@ -94,7 +74,6 @@ export default function AddBurger() {
             title: burger.type,
             price: burger.price,
             id: burger.id,
-            // quantity: burger.quantity
           })
         }}>
           <h2>{burger.type}</h2>
@@ -111,7 +90,6 @@ export default function AddBurger() {
             title: fries.type,
             price: fries.price,
             id: fries.id,
-            // quantity: fries.quantity
           })
         }}>
         <h2>{fries.type}</h2>
@@ -128,7 +106,6 @@ export default function AddBurger() {
             title: drink.type,
             price: drink.price,
             id: drink.id,
-            // quantity: drink.quantity
           })
         }}>
           <h2>{drink.type}</h2>
@@ -158,20 +135,14 @@ export default function AddBurger() {
 
 
  const handleRemove = (event) => {
-  cart.productLines.splice(event.target.value)
+  cart.productLines.splice(event.target.value, 1)
   console.log(cart.productLines)
   alert('Beställning borttagen!')
-
-    // cart.productLines.filter(items => items.id !== id)
-    // alert('Beställning borttagen!')
-
-    // let index = event.target.id;
-    // cart.removeItem(index)
   }
     
 const emptyCart = () => {
-  const clearCart = []
-  cart.productLines(clearCart)
+  const clearCart = [];
+  cart.setProductLines(cart.productLines.length = 0)
 }
 
 if(loading) {
@@ -210,7 +181,6 @@ return (
             return (
               <CartItems key={items.id}>
                 <li>
-                {/* X {items.quantity}  */}
                     {items.title} - {items.price}NOK
                 </li>
                 <CartButton onClick={(event) => handleRemove(event)}>-</CartButton>

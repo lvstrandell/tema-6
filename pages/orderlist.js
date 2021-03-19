@@ -8,6 +8,7 @@ import {
   ComplOrder,
   PrepSection
 } from '../components/CartPage/index';
+import { ItemsTitle } from '../components/MenuPage';
 
 export default function OrderList() {
   const [newOrders, setNewOrders] = useState([])
@@ -56,16 +57,9 @@ const collectOrder = (data) => {
     return incompleteOrders.map((item) => {
         return (
           <PrepContainer key={Math.random() * 1000}>
-              <h3>{item.user}</h3>
             <PrepOrder>
-            {item.order.map(productLine => {
-              return (
-              <div key={productLine.id}>
-                <h3>{productLine.title}</h3>
-              </div>
-            )
-           })}
-          </PrepOrder>
+              <h3>{item.user}</h3>
+            </PrepOrder>
         </PrepContainer>
         )
     })
@@ -76,18 +70,10 @@ const collectOrder = (data) => {
     return completeOrders.map((item) => {
         return (
           <PrepContainer key={Math.random() * 1000}>
-              <h3>{item.user}</h3>
             <ComplOrder>
-            {item.order.map(productLine => {
-              return (
-                <div key={productLine.id}>
-                <h3>{productLine.title}</h3>
-                
-              </div>
-            )
-          })}
-          </ComplOrder>
-          <CompleteBtn onClick={() => collectOrder(item.id)}>Hämta</CompleteBtn>
+              <h3>{item.user}</h3>
+            <CompleteBtn onClick={() => collectOrder(item.id)}>Hämta</CompleteBtn>
+            </ComplOrder>
         </PrepContainer>
         )
       })
@@ -97,12 +83,16 @@ const collectOrder = (data) => {
 return(
   <CartPageMain style={{marginTop: '10%'}}>
     <PrepSection>
-    <h2>Beställningar under tillberedning</h2>
-    {RenderIncompleteOrders()}
+      <ItemsTitle>Mottagna beställningar</ItemsTitle>
+      <article>
+        {RenderIncompleteOrders()}
+      </article>
     </PrepSection>
     <PrepSection>
-    <h2>Färdiga beställningar</h2>
-    {RenderCompleteOrders()}
+      <ItemsTitle>Färdiga beställningar</ItemsTitle>
+      <section>
+        {RenderCompleteOrders()}
+      </section>
     </PrepSection>
   </CartPageMain>
   )

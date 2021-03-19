@@ -10,8 +10,8 @@ import PageTitle from '../../components/PageTitle/index';
 import { ItemsTitle } from "../../components/MenuPage";
 
 const schema = object().shape({
-  email: string().required("Dette feltet er påkrevd"),
-  password: string().required("Dette feltet er påkrevd"),
+  email: string().required("Detta fältet måste fyllas i"),
+  password: string().required("Detta fältet måste fyllas i"),
 });
 
 const Login = () => {

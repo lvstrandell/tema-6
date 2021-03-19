@@ -46,7 +46,7 @@ export default function NavBar() {
   const isAutheticated = useAuth();
 
   const isNotLoggedIn = () => {
-    if(!isAutheticated) {
+    if(isAutheticated) {
       return (
         <>
         <NavBarBase>
@@ -63,39 +63,43 @@ export default function NavBar() {
               <Link href="/add">Beställ</Link>
             </li>
             <li>
-              <Link href="/loginsignup/login">Logga in</Link>
+              <Link href="/orderlist">Din beställning</Link>
+            </li>
+            <li>
+              <Link href="/loginsignup/profile">Profile</Link>
             </li>
           </ul>
         </NavBarBase>
       </>
       )
-    }
-  }
-
-
-   return (
-     <>
-      <NavBarBase>
-      <ul>
-        <li>
-          <Link href="/">
-            <NavLogo>BB</NavLogo>
-          </Link>
-        </li>
-        <li>
-          <Link href="/menu">Meny</Link>
-        </li>
-        <li>
-          <Link href="/add">Beställ</Link>
-        </li>
-        <li>
-          <Link href="/orderlist">Din beställning</Link>
-        </li>
-        <li>
-          <Link href="/loginsignup/profile">Profile</Link>
-        </li>
-      </ul>
-      </NavBarBase>
-    </>
+    } else {      
+      return (
+      <>
+        <NavBarBase>
+        <ul>
+          <li>
+            <Link href="/">
+              <NavLogo>BB</NavLogo>
+            </Link>
+          </li>
+          <li>
+            <Link href="/menu">Meny</Link>
+          </li>
+          <li>
+            <Link href="/add">Beställ</Link>
+          </li>
+          <li>
+            <Link href="/loginsignup/login">Logga in</Link>
+          </li>
+        </ul>
+        </NavBarBase>
+      </>
    )
+  }
+  }
+  return (
+    <>
+      {isNotLoggedIn()}
+    </>
+  )
 }

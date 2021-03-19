@@ -20,13 +20,14 @@ const Wrapper = styled.div`
   border: 1px solid rgba( 255, 255, 255, 0.18 );
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   height: 2rem;
   width: 6rem;
   display: block;
   margin: auto;
   border-radius: 10px;
   background-color: black;
+  color: #ffae42;
   a{
     text-decoration: none;
     color: #ffae42;

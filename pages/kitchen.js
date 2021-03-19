@@ -4,8 +4,10 @@ import {
   PrepOrder,
   PrepContainer,
   CompleteBtn,
-  CartPageMain
+  CartPageMain,
+  PrepSection
 } from '../components/CartPage/index';
+import { ItemsTitle } from '../components/MenuPage';
 
 
 export default function Kitchen() {
@@ -33,22 +35,6 @@ export default function Kitchen() {
       console.log(error)
     }
   }, [])
-
-  // const completeOrder = () => {
-  //    try {
-  //     orderCollection.get().then((querySnapshot) => {
-  //       const completeOrder = [];
-  //       querySnapshot.forEach((doc) => {
-  //       doc.ref.update({
-  //         complete: true,
-  //       })
-  //     })
-  //     setNewOrders(completeOrder)
-  //   })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
   
   const completeOrder = (data) => {
     const collection = firebaseInstance.firestore().collection('orders')
@@ -89,35 +75,13 @@ export default function Kitchen() {
 
   console.log(newOrders)
 
-  // const RenderCompleteOrders =  () => {
-  //   let completeOrders = [...newOrders.filter((order) => order.complete === true)]
-  //   return completeOrders.map((item) => {
-  //     // console.log(item)
-  //       return (
-  //         <PrepContainer key={Math.random() * 1000}>
-  //             <h3>Order Nummer: någon slags funktion</h3>
-  //           <PrepOrder>
-  //           {item.order.map(productLine => {
-  //             return (
-  //             <div key={productLine.id}>
-  //               <h3>{productLine.title}</h3>
-  //             </div>
-  //           )
-  //           })}
-  //         </PrepOrder>
-  //       </PrepContainer>
-  //       )
-  //   })
-  // }
-
 
 return(
   <CartPageMain style={{marginTop: '10%'}}>
-    <section style={{background: '#fff3'}}>
-    <h2>Beställningar under tillberedning</h2>
+    <PrepSection>
+    <ItemsTitle>Beställningar</ItemsTitle>
       {RenderIncompleteOrders()}
-    </section>
-    {/* <section>{() => RenderCompleteOrders()}</section> */}
+    </PrepSection>
   </CartPageMain>
   )
 }

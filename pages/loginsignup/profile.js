@@ -2,9 +2,10 @@ import React, { useEffect } from 'react'
 import firebase from '../../config/firebase';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../config/auth';
-import Link from 'next/link'
+import { StyledButton} from '../receipt'
 import {
-  ProfileContainer
+  ProfileContainer, 
+  ProfileMain
 } from '../../components/ProfilePage/index';
 
 
@@ -32,13 +33,13 @@ const Profile = () => {
   };
 
   return (
-    <main>
+    <ProfileMain>
       <ProfileContainer>
         <h2>Din Profil</h2>
         <p>{user.email}</p>
-        <button onClick={handleSignOut}>Sign Out</button>
+        <StyledButton onClick={handleSignOut}>Sign Out</StyledButton>
       </ProfileContainer>
-    </main>
+    </ProfileMain>
   )
 }
 
