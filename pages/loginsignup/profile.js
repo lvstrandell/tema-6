@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import firebase from '../../config/firebase';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../config/auth';
-import ReturnButton from '../../components/ReturnButton/index';
 import Link from 'next/link'
 import {
   ProfileContainer
@@ -39,7 +38,6 @@ const Profile = () => {
         <p>{user.email}</p>
         <button onClick={handleSignOut}>Sign Out</button>
       </ProfileContainer>
-      <ReturnButton><Link href="/">Tillbaka till startsidan</Link></ReturnButton>
     </main>
   )
 }

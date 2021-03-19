@@ -4,10 +4,10 @@ import { object, string } from "yup";
 import Link from "next/link";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from 'next/router'
-import ReturnButton from "../../components/ReturnButton";
 import LoginForm from "../../components/LoginForm";
 import { useAuth } from '../../config/auth';
 import PageTitle from '../../components/PageTitle/index';
+import { ItemsTitle } from "../../components/MenuPage";
 
 const schema = object().shape({
   email: string().required("Dette feltet er påkrevd"),
@@ -40,7 +40,8 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div style={{marginTop: '15%'}}>
+      <ItemsTitle>Logga in</ItemsTitle>
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <input 
           type="text" 
@@ -57,7 +58,6 @@ const Login = () => {
         <button type="submit">Logga in</button>
       <Link href="/loginsignup/signup">Har du ingen användare? klicka här</Link>
       </LoginForm>
-      <ReturnButton><Link href="/">Tillbaka till startsidan</Link></ReturnButton>
     </div>
   );
 };

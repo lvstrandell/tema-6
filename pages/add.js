@@ -28,7 +28,27 @@ export default function AddBurger() {
   const router = useRouter();
   const cart = useCart();
 
+  // useEffect(() => {
+  //   const val = snapshot.data()
 
+  // }, [])
+
+  // const handleAdd = () => {
+  //   const counterRef = firebaseInstance.firestore().collection('globals').doc('counter');
+  //     firebaseInstance.firestore().runTransaction((transactions) => {
+  //       return transactions.get(counterRef).then((doc) => {
+  //         const count = doc.data().count;
+  //         let newCount = count + 1
+  //         if(newCount > 59) {
+  //           newCount = 1
+  //         }
+
+  //         transactions.update(counterRef, { count: newCount})
+
+  //       })
+  //     })
+  // }
+  //if(collected === true? display: none? kanskekkeeekekekek)
   useEffect(() => {
     firebaseInstance.firestore().collection('burgers')
     .onSnapshot((querySnapshot) => {
@@ -120,11 +140,13 @@ export default function AddBurger() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    router.push('/orderlist')
+    router.push('/receipt')
     const orderCollection = firebaseInstance.firestore().collection('orders');
     orderCollection.doc().set({
+      user: user.email,
       order: [...cart.productLines],
       complete: false,
+      collected: 'false'
     })
     .then(() => {
       console.log('Ny beställning!')
@@ -136,12 +158,15 @@ export default function AddBurger() {
 
 
  const handleRemove = (event) => {
-  cart.productLines.splice(event.target.value, 1)
+  cart.productLines.splice(event.target.value)
   console.log(cart.productLines)
   alert('Beställning borttagen!')
 
     // cart.productLines.filter(items => items.id !== id)
     // alert('Beställning borttagen!')
+
+    // let index = event.target.id;
+    // cart.removeItem(index)
   }
     
 const emptyCart = () => {

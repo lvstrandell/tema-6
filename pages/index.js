@@ -1,6 +1,8 @@
 import PageTitle from '../components/PageTitle/index';
 import NavBar from '../components/NavBar/index';
 import styled from 'styled-components';
+import { useEffect } from 'react';
+import firebaseInstance from '../config/firebase'
 
 const Main = styled.main`
   position: absolute;
@@ -13,6 +15,15 @@ const Main = styled.main`
 `;
 
 export default function Home() {
+  useEffect(async () => {
+    const usersSnapshot = await firebaseInstance.firestore().collection("users").get();
+
+    const users = [];
+    usersSnapshot.forEach((doc) => {
+    users.push(doc.data());
+    });
+    console.log("users", users);
+  }, []);
   return (
     <Main>
       <NavBar />

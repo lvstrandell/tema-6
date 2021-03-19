@@ -1,9 +1,13 @@
 import firebaseInstance from '../config/firebase';
 import React, { useState, useEffect } from 'react';
 import PageTitle from '../components/PageTitle';
-import Link from 'next/link';
-import ReturnButton from '../components/ReturnButton/index';
-import { MenuMain, MenuWrapper, ItemsTitle, MenuItems, MenuTitle } from '../components/MenuPage/index';
+import { 
+  MenuMain, 
+  MenuWrapper, 
+  ItemsTitle, 
+  MenuItems, 
+  MenuTitle, 
+  MenuSection } from '../components/MenuPage/index';
 
 function Menu() {
   const [burgers, setBurgers] = useState([]);
@@ -63,51 +67,50 @@ function Menu() {
 
   return(
     <MenuMain>
-        <MenuTitle>Meny</MenuTitle>
-        <ItemsTitle>Burgers</ItemsTitle>
-        <MenuWrapper>
-        {burgers.map((items) => {
+      <MenuTitle>Meny</MenuTitle>
+      <MenuSection>
+      <ItemsTitle>Burgers</ItemsTitle>
+      <MenuWrapper>
+      {burgers.map((items) => {
+        return(
+          <MenuItems key={items.id}>
+            <div>
+              <h3>{items.type}</h3>
+              <p>{items.desc}</p>
+              <p>{items.price}NOK</p>
+            </div>
+          </MenuItems>
+        )
+      })}
+      </MenuWrapper>
+      <ItemsTitle>Fries</ItemsTitle>
+      <MenuWrapper>
+        {fries.map((items) =>{
           return(
             <MenuItems key={items.id}>
               <div>
                 <h3>{items.type}</h3>
-                <p>{items.desc}</p>
+                <p>{items.size}</p>
                 <p>{items.price}NOK</p>
               </div>
             </MenuItems>
           )
         })}
-        </MenuWrapper>
-        <ItemsTitle>Fries</ItemsTitle>
-        <MenuWrapper>
-          {fries.map((items) =>{
+      </MenuWrapper>
+      <ItemsTitle>Drinks</ItemsTitle>
+      <MenuWrapper>
+        {drinks.map((items) =>{
             return(
               <MenuItems key={items.id}>
                 <div>
                   <h3>{items.type}</h3>
-                  <p>{items.size}</p>
                   <p>{items.price}NOK</p>
                 </div>
               </MenuItems>
             )
           })}
-        </MenuWrapper>
-        <ItemsTitle>Drinks</ItemsTitle>
-        <MenuWrapper>
-          {drinks.map((items) =>{
-              return(
-                <MenuItems key={items.id}>
-                  <div>
-                    <h3>{items.type}</h3>
-                    <p>{items.price}NOK</p>
-                  </div>
-                </MenuItems>
-              )
-            })}
-        </MenuWrapper>
-        <ReturnButton>
-            <Link href  ="/">Tillbaka till startsidan</Link>
-        </ReturnButton>
+      </MenuWrapper>
+      </MenuSection>
     </MenuMain>
   )
 }

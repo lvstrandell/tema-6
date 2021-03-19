@@ -7,16 +7,38 @@ export const CartPageMain = styled.main`
   justify-content: center;
 `;
 
+export const PrepSection = styled.section`
+  width: 30rem;
+  border: solid 2px black;
+  border-radius: 10px;
+`;
+
 export const PrepContainer = styled.article`
-  max-width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* display: flex; */
+  width: 100%;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 2em;
 `;
 
 export const PrepOrder = styled.div`
+  min-height: 5rem;
+  width: 10rem;
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5em;
+  background: rgba( 214, 213, 213, 0.45 );
+  box-shadow: 0 3px 25px 0 rgba(255, 84, 0, 0.9);
+  backdrop-filter: blur( 2.5px );
+  -webkit-backdrop-filter: blur( 2.5px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+`;
+
+export const ComplOrder = styled.div`
   min-height: 5rem;
   width: 10rem;
   margin: .5em;
@@ -25,8 +47,12 @@ export const PrepOrder = styled.div`
   justify-content: center;
   align-items: center;
   gap: .5em;
-  border: solid 1px black;
-  border-radius: 10px;
+  background: rgba( 13, 194, 13, 0.45 );
+box-shadow: 0 8px 25px 0 rgba(91, 180, 69, 0.9);
+backdrop-filter: blur( 2.5px );
+-webkit-backdrop-filter: blur( 2.5px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
 `;
 
 export const CompleteBtn = styled.button`

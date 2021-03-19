@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from 'next/router'
 import firebaseInstance from "../../config/firebase";
 import LoginForm from '../../components/LoginForm/index';
+import { ItemsTitle } from "../../components/MenuPage";
 
 const Signup = () => {
   const [email, setEmail] = useState(null);
@@ -25,6 +26,7 @@ const Signup = () => {
 
   return (
     <div style={{marginTop: '15%'}}>
+      <ItemsTitle>Registrera dig här</ItemsTitle>
       <LoginForm onSubmit={handleSubmit}>
         <input
           type="text"

@@ -11,6 +11,11 @@ background-repeat: no-repeat;
 background-size: cover;
 `;
 
+export const MenuSection = styled.section`
+  display: grid;
+  justify-content: center;
+`;
+
 export const MenuTitle = styled.h2`
   font-size: 3rem;
   text-align: center;
@@ -26,8 +31,6 @@ grid-template-rows: 50px 50px;
 grid-gap: 4em;
 min-height: 250px;
 max-width: 720px;
-
-margin-left: 25%;
 `;
 
 
@@ -39,10 +42,12 @@ text-align: center;
 
 export const MenuItems = styled.div`
 height: 100px;
-border: 1px solid black;
 margin-top: 2em;
 line-height: 1.5rem;
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-background-color: #fff9;
+background: rgba( 214, 213, 213, 0.45 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 2.5px );
+-webkit-backdrop-filter: blur( 2.5px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
 `;

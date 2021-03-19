@@ -1,18 +1,18 @@
 import firebaseInstance from '../config/firebase';
-import Link from 'next/link'
 import { useState, useEffect } from 'react';
 import { 
   PrepOrder,
   PrepContainer,
   CompleteBtn,
-  CartPageMain
+  CartPageMain,
+  ComplOrder,
+  PrepSection
 } from '../components/CartPage/index';
 
 export default function OrderList() {
   const [newOrders, setNewOrders] = useState([])
-  const [complete, setComplete] = useState()
   
-  const orderCollection = firebaseInstance.firestore().collection('orders')
+  const orderCollection = firebaseInstance.firestore().collection('orders').where('collected', '==', 'false')
   
   const fetchOrders = (orderCollection) => {
     orderCollection.onSnapshot((querySnapshot) => {
@@ -33,14 +33,30 @@ export default function OrderList() {
     } catch (error) {
       console.log(error)
     }
-  }, [newOrders])
+  }, []);
+
+const collectOrder = (data) => {
+  const collection = firebaseInstance.firestore().collection('orders')
+  let document = collection.doc(`${data}`)
+  console.log(data)
+    return document.update({ 
+      collected: 'true'
+    })
+  .then(() => {
+    console.log('Beställningen hämtad!')
+  })
+  .catch((error) => {
+      console.log(error)
+    }) 
+}
+
 
   const RenderIncompleteOrders = () => {
     let incompleteOrders = [...newOrders.filter((order) => order.complete === false)]
     return incompleteOrders.map((item) => {
         return (
           <PrepContainer key={Math.random() * 1000}>
-              <h3>Order Nummer: någon slags funktion</h3>
+              <h3>{item.user}</h3>
             <PrepOrder>
             {item.order.map(productLine => {
               return (
@@ -48,44 +64,46 @@ export default function OrderList() {
                 <h3>{productLine.title}</h3>
               </div>
             )
-          })}
+           })}
           </PrepOrder>
         </PrepContainer>
         )
     })
   }
 
-  const RenderCompleteOrders = () => {
+  const RenderCompleteOrders =  () => {
     let completeOrders = [...newOrders.filter((order) => order.complete === true)]
     return completeOrders.map((item) => {
         return (
           <PrepContainer key={Math.random() * 1000}>
-              <h3>Order Nummer: någon slags funktion</h3>
-            <PrepOrder>
+              <h3>{item.user}</h3>
+            <ComplOrder>
             {item.order.map(productLine => {
               return (
-              <div key={productLine.id}>
+                <div key={productLine.id}>
                 <h3>{productLine.title}</h3>
+                
               </div>
             )
           })}
-          </PrepOrder>
+          </ComplOrder>
+          <CompleteBtn onClick={() => collectOrder(item.id)}>Hämta</CompleteBtn>
         </PrepContainer>
         )
-    })
+      })
   }
 
 
 return(
   <CartPageMain style={{marginTop: '10%'}}>
-    <section style={{background: '#fff3'}}>
+    <PrepSection>
     <h2>Beställningar under tillberedning</h2>
     {RenderIncompleteOrders()}
-    </section>
-    <section style={{background: '#fff6'}}>
+    </PrepSection>
+    <PrepSection>
     <h2>Färdiga beställningar</h2>
     {RenderCompleteOrders()}
-    </section>
+    </PrepSection>
   </CartPageMain>
   )
 };
