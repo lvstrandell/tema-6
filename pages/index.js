@@ -6,7 +6,7 @@ const Main = styled.main`
   position: absolute;
   top: 0;
   min-height: 100vh;
-  width: 100%;
+  min-width: 100vw;
   background-image: url("/burgerbackground.jpg");
   background-repeat: no-repeat;
   background-size: cover;

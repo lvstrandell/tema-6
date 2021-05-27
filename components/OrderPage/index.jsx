@@ -12,6 +12,12 @@ export const GridWrapper = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
+
+  @media screen and (max-width: 768px){ 
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
+    align-items: center;  
+  }
 `;
 
 export const Container = styled.article`
@@ -22,8 +28,12 @@ export const Container = styled.article`
   border: 1px solid black;
   border-radius: 10px;
   width: 80%;
-  max-width: 50vw;
-  margin-top: 15%;
+  max-width: 50rem;;
+  margin: 20% 10%;
+  padding-bottom: 3em;
+
+  @media screen and (max-width: 768px) { margin-bottom: 0px; }
+  @media screen and (max-width: 650px){ width: 18rem; }
 `;
 
 export const ItemsContainer = styled.div`
@@ -47,7 +57,10 @@ export const CartContainer = styled.article`
   border: 1px black solid;
   border-radius: 10px;
   min-height: 50px;
-  margin-top: 15%;
+  margin-top: 20%;
+  padding-bottom: 2rem;
+  @media screen and (max-width: 768px){ width: 80%; }
+  @media screen and (max-width: 768px){ width: 70%; }
 `;
 
 export const CartWrapper = styled.div`
@@ -111,12 +124,14 @@ export const OrderButton = styled.button`
   border-radius: 10px;
   box-shadow: 1px 1px 1px 1px rgba(122, 75, 22, 9);
 
+  transition: 100ms ease-in-out;
   &:hover {
-    background-color: #F86B06;
+    transform: translateY(-5px);
   }
 
   &:hover::after{
     color: white;
     content: ' Lägg Till!';
   }
+
 `;

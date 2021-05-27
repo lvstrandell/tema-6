@@ -10,20 +10,20 @@ const LoginForm = styled.form`
   height: 20rem;;
   margin: 2rem auto;
 
-  background: rgba( 255, 0, 0, 0.45 );
-  box-shadow: 0 8px 32px 0 rgba(255, 84, 0, 0.9);
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
+  background: #ffae42;
+  box-shadow: 1px 1px 1px black;
   border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border: 1px solid black;
   
 
   input {
     margin: 1rem auto;
     border-radius: 20px;
     padding: .5em;
-    background-color: black;
+    background-color: #fff;
     color: #ffae42;
+    @media screen and (max-width: 768px){ font-size: .8rem }
+    @media screen and (max-width: 480px){ font-size: .5rem }
   }
 
   button {
@@ -33,15 +33,18 @@ const LoginForm = styled.form`
     padding: .8em;
 
     &:hover{
-      background-color: #23c118;
-    color: white;
+      opacity: .8;
+      background-color: #112233;
+      color: white;
     }
+    @media screen and (max-width: 768px){ font-size: .8rem;}
+    @media screen and (max-width: 480px){ font-size: .5rem; }
   }
 
   a {
     margin-top: 1em;
     text-decoration: none;
-    color: black;
+    color: #fff;
     font-size: 1rem;
     padding: .5em;
 
@@ -51,7 +54,12 @@ const LoginForm = styled.form`
       cursor: pointer;
       border-radius: 20px;
     }
+    @media screen and (max-width: 768px){ font-size: .8rem }
+    @media screen and (max-width: 480px){ font-size: .5rem }
   }
+
+  @media screen and (max-width: 768px){ font-size: .8rem; width: 15rem; }
+  @media screen and (max-width: 480px){ font-size: .5rem; height: 15rem;}
 `;
 
 export default LoginForm;

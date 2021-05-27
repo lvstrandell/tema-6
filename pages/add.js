@@ -23,11 +23,9 @@ export default function AddBurger() {
   const [burger, setBurger] = useState([]);
   const [fries, setFries] = useState([]);
   const [drinks, setDrinks]=useState([]);
-  const [error, setError] = useState(null);
   const {user, loading, isAuthenticated} = useAuth();
   const router = useRouter();
   const cart = useCart();
-  console.log(cart)
 
   useEffect(() => {
     firebaseInstance.firestore().collection('burgers')
@@ -54,7 +52,7 @@ export default function AddBurger() {
       setFries(fries)
     })
 
-    firebaseInstance.firestore().collection('drinks')
+    firebaseInstance.firestore().collection('drinks').orderBy('price')
     .onSnapshot((querySnapshot) => {
       const drinks = [];
       querySnapshot.forEach((doc) => {
@@ -137,12 +135,17 @@ export default function AddBurger() {
  const handleRemove = (event) => {
   cart.productLines.splice(event.target.value, 1)
   console.log(cart.productLines)
-  alert('Beställning borttagen!')
+  router.push('/add')
+  alert('Produkt borttagen!')
   }
-    
+
+
 const emptyCart = () => {
   const clearCart = [];
-  cart.setProductLines(cart.productLines.length = 0)
+  cart.productLines.length = 0
+  console.log(cart.productLines)
+  alert('Beställnignen borttagen')
+  router.push('/add')
 }
 
 if(loading) {

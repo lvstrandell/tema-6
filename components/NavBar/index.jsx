@@ -6,7 +6,7 @@ const NavBarBase = styled.nav`
   position: fixed;
   top: 0;
   background-color: black;
-  width: 100vw;
+  min-width: 100%;
   z-index: 1;
 
   ul {
@@ -16,7 +16,7 @@ const NavBarBase = styled.nav`
     list-style: none;
     width: 70vw;
     margin: auto;
-    height: 4em;
+    height: 4.75em;
     }
 
     a {
@@ -29,6 +29,8 @@ const NavBarBase = styled.nav`
         border-bottom: 2px solid #ffae42;
         color: #ffae42;
       }
+      @media screen and (max-width: 768px){ font-size: .8rem }
+      @media screen and (max-width: 480px){ font-size: .5rem }
     }
 `;
 
@@ -39,7 +41,10 @@ const NavLogo = styled.h1`
   padding: .5em;
   color: #ffae42;
   text-shadow: 2px 2px white;
-    cursor: pointer;
+  cursor: pointer;
+
+  @media screen and (max-width: 768px){ font-size: 1.2rem }
+  @media screen and (max-width: 480px){ font-size: .7rem }
 `;
 
 export default function NavBar() {

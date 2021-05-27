@@ -12,7 +12,7 @@ const firebaseConfig = {
   databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASEURL
 };
 
-if (!firebase.apps.length) {
+if (!firebase.apps.length){
   try {
     firebase.initializeApp(firebaseConfig);
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);

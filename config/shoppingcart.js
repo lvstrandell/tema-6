@@ -25,7 +25,6 @@ export const Cart = ({ children }) => {
   return(
 
     <CartContext.Provider  value={{ productLines, addProductLine, total}}>
-      {/* lägg till quantity om det ska vara med som props */}
       {children}
     </CartContext.Provider>
 

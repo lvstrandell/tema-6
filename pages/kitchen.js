@@ -5,7 +5,9 @@ import {
   PrepContainer,
   CompleteBtn,
   CartPageMain,
-  PrepSection
+  PrepSection,
+  KitchenOrder,
+  KitchenUser
 } from '../components/CartPage/index';
 import { ItemsTitle } from '../components/MenuPage';
 
@@ -57,8 +59,8 @@ export default function Kitchen() {
     return incompleteOrders.map((item) => {
         return (
           <PrepContainer key={Math.random() * 1000}>
-              <h3>{item.user}</h3>
-            <PrepOrder>
+              <KitchenUser>{item.user}</KitchenUser>
+            <KitchenOrder>
             {item.order.map(productLine => {
               return (
               <div key={productLine.id}>
@@ -66,7 +68,7 @@ export default function Kitchen() {
               </div>
             )
            })}
-          </PrepOrder>
+          </KitchenOrder>
           <CompleteBtn onClick={() => completeOrder(item.id)}>Färdig</CompleteBtn>
         </PrepContainer>
         )
@@ -77,9 +79,9 @@ export default function Kitchen() {
 
 
 return(
-  <CartPageMain style={{marginTop: '10%'}}>
+  <CartPageMain>
     <PrepSection>
-    <ItemsTitle>Beställningar</ItemsTitle>
+    <ItemsTitle style={{marginTop: '5%'}}>Beställningar</ItemsTitle>
       {RenderIncompleteOrders()}
     </PrepSection>
   </CartPageMain>

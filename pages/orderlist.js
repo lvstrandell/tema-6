@@ -81,7 +81,7 @@ const collectOrder = (data) => {
 
 
 return(
-  <CartPageMain style={{marginTop: '10%'}}>
+  <CartPageMain>
     <PrepSection>
       <ItemsTitle>Mottagna beställningar</ItemsTitle>
       <article>

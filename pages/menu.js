@@ -7,7 +7,8 @@ import {
   ItemsTitle, 
   MenuItems, 
   MenuTitle, 
-  MenuSection } from '../components/MenuPage/index';
+  MenuSection, 
+  BurgerMenuWrapper} from '../components/MenuPage/index';
 
 function Menu() {
   const [burgers, setBurgers] = useState([]);
@@ -15,9 +16,9 @@ function Menu() {
   const [drinks, setDrinks] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const refBurgers = firebaseInstance.firestore().collection('burgers')
-  const refFries = firebaseInstance.firestore().collection('fries');
-  const refDrinks =firebaseInstance.firestore().collection('drinks')
+  const refBurgers = firebaseInstance.firestore().collection('burgers');
+  const refFries = firebaseInstance.firestore().collection('fries').orderBy('type');
+  const refDrinks =firebaseInstance.firestore().collection('drinks').orderBy('price');
 
   function getBurgers() {
     setLoading(true);
@@ -70,19 +71,20 @@ function Menu() {
       <MenuTitle>Meny</MenuTitle>
       <MenuSection>
       <ItemsTitle>Burgers</ItemsTitle>
-      <MenuWrapper>
+      <BurgerMenuWrapper>
       {burgers.map((items) => {
         return(
           <MenuItems key={items.id}>
             <div>
               <h3>{items.type}</h3>
               <p>{items.desc}</p>
-              <p>{items.price}NOK</p>
+              <p>{items.price} NOK</p>
             </div>
           </MenuItems>
         )
       })}
-      </MenuWrapper>
+      </BurgerMenuWrapper>
+      <article>
       <ItemsTitle>Fries</ItemsTitle>
       <MenuWrapper>
         {fries.map((items) =>{
@@ -91,12 +93,14 @@ function Menu() {
               <div>
                 <h3>{items.type}</h3>
                 <p>{items.size}</p>
-                <p>{items.price}NOK</p>
+                <p>{items.price} NOK</p>
               </div>
             </MenuItems>
           )
         })}
       </MenuWrapper>
+      </article>
+      <article>
       <ItemsTitle>Drinks</ItemsTitle>
       <MenuWrapper>
         {drinks.map((items) =>{
@@ -104,12 +108,14 @@ function Menu() {
               <MenuItems key={items.id}>
                 <div>
                   <h3>{items.type}</h3>
-                  <p>{items.price}NOK</p>
+                  <p>{items.size}</p>
+                  <p>{items.price} NOK</p>
                 </div>
               </MenuItems>
             )
           })}
       </MenuWrapper>
+      </article>
       </MenuSection>
     </MenuMain>
   )
